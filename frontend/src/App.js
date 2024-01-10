@@ -1,20 +1,24 @@
-import './App.css';
-
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-import Home from './pages/Home';
-import Login from './pages/Login';
-import NotFound from './pages/NotFound';
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import NotFoundPage from "./components/notFoundPage";
+import LoginPage from "./components/loginPage";
+import MainPage from "./components/mainPage";
+import { PrivateRout, PublicRoute } from "./components/misc";
+import ROUTES from "./apiConfig";
 
 function App() {
   return (
-    <BrowserRouter>
+    <div className="d-flex flex-column h-100">
       <Routes>
-        <Route path="*" element={<NotFound />} />
-        <Route path="/" element={<Home />}/>
-        <Route path="/login" element={<Login />}/>
+        <Route element={<PublicRoute />}>
+          <Route path={ROUTES.LOGIN_PAGE} element={<LoginPage />} />
+        </Route>
+        <Route element={<PrivateRout />}>
+          <Route path={ROUTES.MAIN_PAGE} element={<MainPage />} />
+        </Route>
+        <Route path={ROUTES.NOT_FOUND_PAGE} element={<NotFoundPage />} />
       </Routes>
-    </BrowserRouter>
+    </div>
   );
 }
 
